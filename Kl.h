@@ -7,6 +7,8 @@
 #define mk   0x3fff
 #define nStep 50.0*1e3*17.2
 
+// Конвейер шлифовки плит
+
 class Conw {
 unsigned int i,j,x,y;
 friend Raskroy;
@@ -23,6 +25,7 @@ void delPl();
 void plNum();
 };
 
+// Раскрой  плит
 class Raskroy {
 unsigned int Mrl[1000];
 unsigned int Sv[100][100];
@@ -89,6 +92,8 @@ void Exit();
 void Error(int i);
 };
 
+// Загрузка информации о заводском плане
+
 class loadInfo:public menu {
 long beginArea;
 unsigned int date,date_,Mdate;
@@ -114,6 +119,8 @@ void savInfo();
 //index 0-min 1-hour 2-wrk 3-day 4-mon 5-year
 };
 
+
+
 class report:public loadInfo {
 void repMenu();
 void repDraw();
@@ -133,6 +140,7 @@ void AdMenu();
 void storeInPar();
 };
 
+// Получение данных из контроллера 
 class channel {
 void _exit_();
 int rx;

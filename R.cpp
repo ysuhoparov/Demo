@@ -30,7 +30,7 @@ extern unsigned char inPar[]; // параметры настройки
 extern char *Name[];
 extern menu M;
 
-
+// –аскорой плиты
 Raskroy::Raskroy(){
 prI=0;
 dx=2; dy=4;
@@ -52,6 +52,8 @@ void Raskroy::getSize(int lineNum)
    if (xSize < 204) xSize=204; if (ySize < 204) ySize=204;
 }
 
+
+// View
 void Raskroy::pxSize(char d,int yR)
 {  int i = xKr[n+d]-xKr[n-1+d]-4, x, y;  yR++;
  // setcolor(colF[l & 7]);
@@ -146,17 +148,18 @@ void Raskroy::razmP() {
  outtextxy(g+km[2]+c-3,y2/2+y1/2-12,temp);        // y_Size
 }
 
+// –аскорой плиты
 void Raskroy::raskroy() {
 // g,xLeft - в см, v - 10см; xKr - в мм;   I - 1см, J - 5см
 static unsigned int color[4]={2,4,8,11}, cm,cn,oldSize;
-float stO,stD,stN;  // —тоимость основной, дополнительной, немерной плитки
+float stO,stD,stN;  			// —тоимость основной, дополнительной, немерной плитки
  if(cP!=1) {
    for(i=0; i < 2*lPlan; i+=2) {
     getSize(i/2); yp[i+1]=xp[i]=xSize; xp[i+1]=yp[i]=ySize;
    }
    for (i=0; i<160; i+=2) if (kd[i] == 255) break;
    if((maxY=i-2) < 10) return;
-   for (i=0; i < maxY/6; i++)                      //  All rectangle
+   for (i=0; i < maxY/6; i++)                  //  All rectangle
     for (j=maxY/2; j > maxY/3; j--) {
       rect(i,j); Sv[i][j]=(xRigh - xLeft) * (j - i);
     }  // for j,i
@@ -166,8 +169,8 @@ float stO,stD,stN;  // —тоимость основной, дополнительной, немерной плитки
        if (Sv[i][j] > Smxv) { Smxv=Sv[i][j]; I=i; J=j; } // for j,i,
      Indx[l]=I+(J << 8);
      if(!l)  Svmax=Sv[I][J];                       // max rectangle
-     Sv[I][J]=0;                                   // zero Sv rectangle
-   }                                               // for l
+     Sv[I][J]=0;                                   	// zero Sv rectangle
+   }                                               	// for l
    if (F==5) findAll();
  }  // if(cP!=1)
  for(prior=0; prior < 4; prior++) {
@@ -196,14 +199,14 @@ float stO,stD,stN;  // —тоимость основной, дополнительной, немерной плитки
         if (xDop > 0) { j=jD[l+i]; yDop=yp[j];
           yNr=(J - I)*25/yDop; sDop[l+i]=((xDop-4)/10)*((yDop-4)*yNr/10);
         }  else  sDop[l+i] = 0;
-      }                     //  if( F ==3 )
-  } }                                              // for i,l
-  for (sDmx=1, l=0; l < 40; l++) {                // Searh opt rect whis 20
+      }                     			//  if( F ==3 )
+  } }                                              	// for i,l
+  for (sDmx=1, l=0; l < 40; l++) {           // Searh opt rect whis 20
    if (F==2) { if (sOsn[l]+sNem[l]/inPar[2] > sDmx) {
                    sDmx=sOsn[l]+sNem[l]/inPar[2]; ls=l;}}
    if (F==3) { if (sOsn[l]+sDop[l]/inPar[3] > sDmx) {
                    sDmx=sOsn[l]+sDop[l]/inPar[3]; ls=l;}}
-  }                                          // for (sDmx=1, l=0; l < 40; l++)
+  }                                          	// for (sDmx=1, l=0; l < 40; l++)
   I=Indx[ls/2] & 255; J=Indx[ls/2] >> 8;
  }    // if (F!=5)
  else { I=ImJ[prior] & 255; J=ImJ[prior] >> 8; ls=jS[prior]; }
@@ -246,7 +249,7 @@ float stO,stD,stN;  // —тоимость основной, дополнительной, немерной плитки
   yNi= yNr = (J - I)*25/ySize ;
   if((yn=(J - I)*25 % ySize) == 0) yNr--;
   yKr[0] = (v+J*2)*12.5; yKr[yNr+1] = (v+I*2)*12.5;
-  for (m=1; m <= yNr+1; m++)  { setcolor(7);               // horizontale Y
+  for (m=1; m <= yNr+1; m++)  { setcolor(7);          // horizontale Y
    if (m <= yNr) { yKr[m] = yKr[0] - m*ySize;
       if (F==3)  i=1; else i=0;
       if((F!=4)&(prior==prI))
@@ -254,6 +257,7 @@ float stO,stD,stN;  // —тоимость основной, дополнительной, немерной плитки
    }
    if ((m >= yNr) & (prior==prI) & (F!=4))  pySize(xNr);
   }    // for m
+// View
   if((F!=4)&(prior==prI)) for (n = 1; n <= xNr+1; n++) pxSize(0,yr);
   if(cP!=1) {
    sp=((xSize-4)*xNi/10)*((ySize-4)*yNi/10);
@@ -295,6 +299,7 @@ float stO,stD,stN;  // —тоимость основной, дополнительной, немерной плитки
  cP=0;
 } // Raskroj
 
+// ѕриближенно к оптимуму
 int Raskroy::optRaskr() {
 register unsigned int i,j,k,l,m;
 int x1,y1,x2,y2,xN1,xN2,yN1,yN2;

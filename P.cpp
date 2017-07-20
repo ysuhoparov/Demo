@@ -54,10 +54,10 @@ char *passw="               ";
 
 Conw::Conw()
 {
-Num=0;             // текущ. плита
-pNumb=0;           // кол-во плит на конвейере
-newNum=0;          // номер новой (последней) плиты на конвейере
-pNum[0]=23;        // массив номеров плит, находящихся на конвейере
+Num=0;             		// текущ. плита
+pNumb=0;           		// кол-во плит на конвейере
+newNum=0;         		// номер новой (последней) плиты на конвейере
+pNum[0]=23;       	 	// массив номеров плит, находящихся на конвейере
 }
 
 void Conw::SmallCon(int color) {
@@ -86,6 +86,7 @@ for (j=0; j < pNumb; j++)
    }
 }
 
+// Добавление новой плиты
 void Conw::newPl() {
   //if (pNum[0]==newNum) return;
   pNumb++; if (pNumb > 20)  pNumb=20;
@@ -94,6 +95,7 @@ void Conw::newPl() {
   pNum[0]=newNum; if(F<noDraw) drawConw(); //contur();  rel();
 }
 
+// Удаление
 void Conw::delPl() {
  if (pNumb > 0) pNumb--;
  if (Num >= pNumb)  Num=pNumb-1;
@@ -106,8 +108,7 @@ void Conw::plNum() {
   sprintf(temp," Плита N %2d ",pNum[Num]);  outtext(temp, 11,4, 0,2);
 }
 
-
-
+// Работа с планом
 void ldPlan() {
  if (!ldFil(fplan[FlPlan],plan,0xffff)) {  M.Error(11+FlPlan);
   strcpy(plan,"  0    8   660   450  1234567  1234567  35  111111      44  ");
@@ -139,7 +140,7 @@ int tNumb[10] = {3,3,4,4,7,7,2,6,6};
 void  Plan() {
 unsigned int i,j; int pos=0; char *st=" _"; char *str="          "; char cr=0;
 //char *msg5 = "N  Пpио- Размеp, mm    План    Выпол-   %   Оста-   Дата ";
-//char *msg6 = "   pитетдлина шиpина    m      нено,m       ток,m   оконч";
+//char *msg6 = "   длина шиpина    m      нет ,m       ток,m   оконч";
     LoadScr("pg1.pak",1);
        setactivepage(1);    pg=1;
  outtext(tplan[FlPlan],12,1,2,64);
